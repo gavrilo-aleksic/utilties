@@ -1,4 +1,6 @@
-/** Function for checking if first argument is true, or if it is false, perform logical AND on second argument */
+/** Function for checking if first argument is true, or if it is false, perform logical AND on second argument
+ * @deprecated Useless function since this is same as condtion || negativeCondition
+ */
 export const TrueOrNegativeAnd = (
   condition: boolean,
   negativeCondition?: boolean
