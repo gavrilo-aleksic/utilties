@@ -18,7 +18,7 @@ describe("[conditionals]", () => {
     expect(result.value()).toBe(true);
   });
 
-  test("[ChainCondition] Should call ifTrue only on true condition", () => {
+  test("[ChainCondition] Should call ifTrue only on true condition and ifFalse on false condition", () => {
     const callback = jest.fn();
     ChainCondition(10 < 9).ifTrue(callback)
     expect(callback).not.toHaveBeenCalled();
@@ -29,9 +29,26 @@ describe("[conditionals]", () => {
     
     const callback3 = jest.fn();
     const callback4 = jest.fn();
-    ChainCondition(9 < 10).ifTrue(callback3).next(() => 8 > 10).ifFalse(callback4)
+    ChainCondition(9 < 10).ifTrue(callback3).next(() => 8 > 10).ifFalse(callback4);
     expect(callback3).toHaveBeenCalled();
     expect(callback4).toHaveBeenCalled();
+  });
+
+  test("[ChainCondition] Should chain or/and operators", () => {
+    const result = ChainCondition(9 < 8).or(2 < 3)
+    expect(result.value()).toBe(true);
+    
+    const result2 = ChainCondition(8 < 9).and(3 < 2)
+    expect(result2.value()).toBe(false);
+
+    const result3 = ChainCondition(8 < 9).and(2 < 3)
+    expect(result3.value()).toBe(true);
+  });
+
+  test("[ChainCondition] Should display previous values only for executed callbacks", () => {
+    const result = ChainCondition(9 < 8).ifTrue(() => 2 < 3).ifFalse(() => 3 > 1);
+    expect(result.getPreviousValues()).toMatchObject([false, true])
+
   });
 
   test("[MultipleOr] Should match all arguments", () => {
