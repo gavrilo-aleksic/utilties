@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1677764247911" clover="3.2.0">
+  <project timestamp="1677764247911" name="All files">
+    <metrics statements="12" coveredstatements="12" conditionals="8" coveredconditionals="8" methods="10" coveredmethods="10" elements="30" coveredelements="30" complexity="0" loc="12" ncloc="12" packages="1" files="2" classes="2"/>
+    <file name="chain-conditionals.ts" path="/Users/gavrilo/Documents/utils/conditionals/chain-conditionals.ts">
+      <metrics statements="8" coveredstatements="8" conditionals="1" coveredconditionals="1" methods="5" coveredmethods="5"/>
+      <line num="10" count="1" type="stmt"/>
+      <line num="12" count="6" type="stmt"/>
+      <line num="13" count="1" type="stmt"/>
+      <line num="15" count="1" type="stmt"/>
+      <line num="17" count="2" type="cond" truecount="1" falsecount="0"/>
+      <line num="18" count="1" type="stmt"/>
+      <line num="25" count="1" type="stmt"/>
+      <line num="26" count="3" type="stmt"/>
+    </file>
+    <file name="conditionals.ts" path="/Users/gavrilo/Documents/utils/conditionals/conditionals.ts">
+      <metrics statements="4" coveredstatements="4" conditionals="7" coveredconditionals="7" methods="5" coveredmethods="5"/>
+      <line num="2" count="1" type="stmt"/>
+      <line num="5" count="1" type="cond" truecount="3" falsecount="0"/>
+      <line num="7" count="8" type="cond" truecount="2" falsecount="0"/>
+      <line num="9" count="8" type="cond" truecount="2" falsecount="0"/>
+    </file>
+  </project>
+</coverage>
