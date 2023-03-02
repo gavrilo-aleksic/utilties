@@ -48,6 +48,12 @@ describe("[conditionals]", () => {
   test("[ChainCondition] Should display previous values only for executed callbacks", () => {
     const result = ChainCondition(9 < 8).ifTrue(() => 2 < 3).ifFalse(() => 3 > 1);
     expect(result.getPreviousValues()).toMatchObject([false, true])
+  });
+
+  test("[ChainCondition] Longer chaining", () => {
+    const result = ChainCondition(9 < 8).ifTrue(() => 2 < 3).ifFalse(() => 3 > 1).and(true);
+    expect(result.getPreviousValues()).toMatchObject([false, true])
+    expect(result.value()).toBe(true)
 
   });
 

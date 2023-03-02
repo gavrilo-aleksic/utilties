@@ -1,3 +1,5 @@
+import { MultipleAnd, MultipleOr } from "./conditionals";
+
 type ChainConditionCallback = (value: boolean) => boolean | undefined | void;
 type ChainConditionValue = () => boolean;
 
@@ -11,9 +13,9 @@ type ChainCondition = {
   /** Method for attaching callback upon falsy return */
   ifFalse: (callback: ChainConditionCallback) => ChainCondition;
   /** Attach logical OR operator on previous value */
-  or: (secondCondition: boolean) => ChainCondition;
+  or: (...args: boolean[]) => ChainCondition;
   /** Attach logical AND operator on previous value */
-  and: (secondCondition: boolean) => ChainCondition;
+  and: (...args: boolean[]) => ChainCondition;
   /** Get all previous values on chaining */
   getPreviousValues: () => boolean[];
 };
@@ -43,10 +45,10 @@ const createChainCondition: (
       if (!value) return executeCallback(callback, value);
       return createChainCondition(value, _previousValues);
     },
-    or: (secondCondition: boolean) =>
-      createChainCondition(value || secondCondition, _previousValues),
-    and: (secondCondition: boolean) =>
-      createChainCondition(value && secondCondition, _previousValues),
+    or: (...args: boolean[]) =>
+      createChainCondition(MultipleOr(value, ...args), _previousValues),
+    and: (...args: boolean[]) =>
+      createChainCondition(MultipleAnd(value, ...args), _previousValues),
   };
 };
 
