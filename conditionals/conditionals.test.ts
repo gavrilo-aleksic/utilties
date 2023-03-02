@@ -23,8 +23,15 @@ describe("[conditionals]", () => {
     ChainCondition(10 < 9).ifTrue(callback)
     expect(callback).not.toHaveBeenCalled();
 
-    ChainCondition(9 < 10).ifTrue(callback)
-    expect(callback).toHaveBeenCalled();
+    const callback2 = jest.fn();
+    ChainCondition(9 < 10).ifTrue(callback2)
+    expect(callback2).toHaveBeenCalled();
+    
+    const callback3 = jest.fn();
+    const callback4 = jest.fn();
+    ChainCondition(9 < 10).ifTrue(callback3).next(() => 8 > 10).ifFalse(callback4)
+    expect(callback3).toHaveBeenCalled();
+    expect(callback4).toHaveBeenCalled();
   });
 
   test("[MultipleOr] Should match all arguments", () => {
