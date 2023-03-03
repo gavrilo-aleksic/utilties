@@ -1,4 +1,4 @@
-import { TryCatch } from "../decorators/try-catch";
+import { TryCatch } from "../decorators/middleware";
 
 export class TestClass {
   public error: Error | null = null;
