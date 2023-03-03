@@ -1,28 +1,41 @@
 /**
- * Method decorators for classes executed before/after the method execution
+ * Method decorators for classes executed before/after/during the method execution
  */
 
-
-type MiddlewareCallbackProps = {
+export type MiddlewareCallbackProps = {
   /** Name of the method called */
   propertyKey: string;
   /** Original arguments of the called method */
-  args: any[]
-}
+  args: any[];
+  /** Return value of the method of previous callback */
+  value: any;
+};
 
-/** Decorator for executing callback argument after the function has been finished executing. */
-export const After = (callback: (props: MiddlewareCallbackProps) => any) => {
+/** Decorator for executing callbacks argument after the function has been finished executing. 
+ * If last callback returns a value (non undefined), the original function's return will be replace with that value
+*/
+export const After = (
+  ...callbacks: ((props: MiddlewareCallbackProps) => any)[]
+) => {
   return function (
     target: any,
     propertyKey: string,
     descriptor: PropertyDescriptor
   ) {
     const oldFunctionValue = descriptor.value;
-    descriptor.value = function(...args: any[]) {
+    descriptor.value = function (...args: any[]) {
       let that = this;
-      oldFunctionValue.apply(that, [...args]);
-      callback.call(that, {propertyKey, args: [...args]});
-      return that;
+      const functionResult = oldFunctionValue.apply(that, [...args]);
+      const callbacksResult = callbacks?.reduce(
+        (prevCallbackValue, currentCallback) =>
+          currentCallback?.call(that, {
+            propertyKey,
+            args: [...args],
+            value: prevCallbackValue,
+          }),
+        functionResult
+      );
+      return callbacksResult !== undefined ? callbacksResult : functionResult;
     };
   };
 };

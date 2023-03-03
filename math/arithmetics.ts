@@ -4,6 +4,7 @@ function pushStep({ propertyKey, args }: { propertyKey: string; args: any[] }) {
   //@ts-ignore
   const that: Arithmetic = this;
   that._steps.push({ operation: propertyKey, args });
+  return that;
 }
 
 type ArithmeticStep = {
