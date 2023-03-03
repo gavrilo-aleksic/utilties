@@ -1,5 +1,17 @@
+/**
+ * Method decorators for classes executed before/after the method execution
+ */
+
+
+type MiddlewareCallbackProps = {
+  /** Name of the method called */
+  propertyKey: string;
+  /** Original arguments of the called method */
+  args: any[]
+}
+
 /** Decorator for executing callback argument after the function has been finished executing. */
-export const After = (callback: (props: {propertyKey: string, args: any[]}) => any) => {
+export const After = (callback: (props: MiddlewareCallbackProps) => any) => {
   return function (
     target: any,
     propertyKey: string,
