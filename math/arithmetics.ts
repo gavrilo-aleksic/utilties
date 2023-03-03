@@ -1,38 +1,43 @@
 import { After } from "../decorators/middleware";
+
+function pushStep({ propertyKey, args }: { propertyKey: string; args: any[] }) {
+  //@ts-ignore
+  const that: Arithmetic = this;
+  that._steps.push({ operation: propertyKey, args });
+}
+
+type ArithmeticStep = {
+  operation: string;
+  args: any[];
+};
 class Arithmetic {
   private _value: number = 0;
-  private _steps: { operation: string; args: any[] }[] = [];
+  _steps: ArithmeticStep[] = [];
 
   constructor(initialValue: number = 0) {
     this.setValue(initialValue);
   }
 
-  getValue() {
+  value() {
     return this._value;
   }
 
+  @After(pushStep)
   add(...args: number[]) {
-    const newValue = args.reduce((prev, curr) => prev + curr, this._value);
-    this.setValue(newValue);
-    return this;
+    return this.setValue(args.reduce((prev, curr) => prev + curr, this._value));
   }
 
+  @After(pushStep)
   multiply(...args: number[]) {
-    const newValue = args.reduce((prev, curr) => prev * curr, this._value);
-    this.setValue(newValue);
-    return this;
+    return this.setValue(args.reduce((prev, curr) => prev * curr, this._value));
   }
 
-  @After(function ({ propertyKey, args }) {
-    // @ts-ignore
-    const that: Arithmetic = this;
-    that._steps.push({ operation: propertyKey, args });
-  })
-  subtract(...args: number[]) {
+  @After(pushStep)
+  subtract(...args: number[]): this {
     return this.setValue(args.reduce((prev, curr) => prev - curr, this._value));
   }
 
-  private setValue(value: any) {
+  private setValue(value: any): this {
     this._value = isNaN(value) ? NaN : value;
     return this;
   }
