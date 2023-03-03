@@ -23,7 +23,10 @@ describe("[Arithmetics]", () => {
 
   test("Should correctly display steps", () => {
     const arithmetics = ar();
-    arithmetics.subtract(5).subtract(1,2,3);
-    expect(arithmetics.getSteps()).toBe(25);
+    arithmetics.subtract(5).subtract(1, 2, 3);
+    expect(arithmetics.getSteps()).toBe([
+      { args: [5], operation: "subtract" },
+      { args: [1, 2, 3], operation: "subtract" },
+    ]);
   });
 });

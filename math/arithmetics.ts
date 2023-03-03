@@ -1,13 +1,7 @@
-import {After} from '../decorators/middleware';
-
-const operations = {
-  add: { name: "add" },
-  multiply: { name: "multiply" },
-} as const;
-
+import { After } from "../decorators/middleware";
 class Arithmetic {
   private _value: number = 0;
-  private _steps: { operation: string, args: any[] }[] = [];
+  private _steps: { operation: string; args: any[] }[] = [];
 
   constructor(initialValue: number = 0) {
     this.setValue(initialValue);
@@ -29,15 +23,13 @@ class Arithmetic {
     return this;
   }
 
-  @After(function({propertyKey, args}){
+  @After(function ({ propertyKey, args }) {
+    // @ts-ignore
     const that: Arithmetic = this;
-    that._steps.push({operation: propertyKey, args})
+    that._steps.push({ operation: propertyKey, args });
   })
   subtract(...args: number[]) {
-    const newValue = args.reduce((prev, curr) => prev - curr, this._value);
-    this.setValue(newValue);
-    console.log({thisValue: this})
-    return this;
+    return this.setValue(args.reduce((prev, curr) => prev - curr, this._value));
   }
 
   private setValue(value: any) {
