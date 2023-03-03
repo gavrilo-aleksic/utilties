@@ -10,6 +10,7 @@ export const After = (callback: (props: {propertyKey: string, args: any[]}) => a
       let that = this;
       oldFunctionValue.apply(that, [...args]);
       callback.call(that, {propertyKey, args: [...args]});
+      return that;
     };
   };
 };
