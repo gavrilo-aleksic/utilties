@@ -56,7 +56,9 @@ const createChainCondition: (
  * has next() method which accepts callback which will receive initialCondition value and so on.
  * @returns ChainConditionValue
  */
-export const ChainCondition = (initialCondition: boolean) => {
+const Condition = (initialCondition: boolean): ChainCondition => {
   const _previousValues = [initialCondition];
   return createChainCondition(initialCondition, _previousValues);
 };
+
+export default Condition

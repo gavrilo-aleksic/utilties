@@ -1,4 +1,4 @@
-import { ChainCondition } from "./chain-conditionals";
+import ChainCondition from "./chain-conditionals";
 import { MultipleAnd, MultipleOr, TrueOrNegativeAnd } from "./conditionals";
 
 describe("[conditionals]", () => {
