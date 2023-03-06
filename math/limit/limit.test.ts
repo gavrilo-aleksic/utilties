@@ -6,4 +6,3 @@ describe("[limit]", () => {
     expect(calculatedLimit.result).toBeCloseTo(Math.E);
   });
 });
-

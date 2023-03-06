@@ -11,9 +11,9 @@ export type MiddlewareCallbackProps = {
   value: any;
 };
 
-/** Decorator for executing callbacks argument after the function has been finished executing. 
+/** Decorator for executing callbacks argument after the function has been finished executing.
  * If last callback returns a value (non undefined), the original function's return will be replace with that value
-*/
+ */
 export const After = (
   ...callbacks: ((props: MiddlewareCallbackProps) => any)[]
 ) => {
