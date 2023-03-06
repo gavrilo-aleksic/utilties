@@ -1,4 +1,4 @@
-import { After, TryCatch,MiddlewareCallbackProps } from "../decorators/middleware";
+import { After, TryCatch,MiddlewareCallbackProps } from "../middleware";
 
 const callback = ({value}: MiddlewareCallbackProps) => value +1;
 const callbackWithNoReturn = () => {}
