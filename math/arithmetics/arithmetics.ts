@@ -1,4 +1,4 @@
-import { After } from "../decorators/middleware";
+import { After } from "../../decorators/middlewares/middlewares";
 
 function pushStep({ propertyKey, args }: { propertyKey: string; args: any[] }) {
   //@ts-ignore

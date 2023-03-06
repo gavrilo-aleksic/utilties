@@ -1,5 +1,5 @@
 import ChainCondition from "./chain-conditionals";
-import { MultipleAnd, MultipleOr, TrueOrNegativeAnd } from "./conditionals";
+import { MultipleAnd, MultipleOr, TrueOrNegativeAnd } from "./logic-operators";
 
 describe("[conditionals]", () => {
   test("[TrueOrNegativeAnd] If provided negative number, should return TRUE if its absolute value is larger than 1", () => {

@@ -1,4 +1,4 @@
-import { MultipleAnd, MultipleOr } from "./conditionals";
+import { MultipleAnd, MultipleOr } from "./logic-operators";
 
 type ChainConditionCallback = (value: boolean) => boolean | undefined | void;
 type ChainConditionValue = () => boolean;
