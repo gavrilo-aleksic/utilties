@@ -1,4 +1,4 @@
-import { TestClass } from "../mocks/TestClass"
+import { TestClass } from "./mocks/TestClass"
 
 describe('[Decorators]', () => {
   test('TryCatch decorator should catch error', () => {
