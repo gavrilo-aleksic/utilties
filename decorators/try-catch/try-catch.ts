@@ -1,4 +1,3 @@
-
 /** Wraps the method in try/catch block. If error is thrown, callback is executed and its returned value is returned as function value */
 export const TryCatch =
   (errorCallback?: (error: any, ...originalArguments: any[]) => any) =>
