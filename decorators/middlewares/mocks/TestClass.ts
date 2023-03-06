@@ -1,7 +1,8 @@
 import { After, MiddlewareCallbackProps } from "../middlewares";
 
-const callback = ({ value }: MiddlewareCallbackProps) => value + 1;
+const callback = ({ value }: MiddlewareCallbackProps): number => value + 1;
 const callbackWithNoReturn = () => {};
+
 export class TestClass {
   @After(callback, callback, callback)
   methodWithAfterCallback() {

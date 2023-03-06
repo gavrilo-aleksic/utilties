@@ -11,7 +11,7 @@ describe("[Decorators]", () => {
     const result = testInstance.methodWithMultipleAfterCallback();
     expect(result).toBe(3);
   });
-  test("After decorator should return original functions return value if last callback doesnt return anything", () => {
+  test("After decorator should return original functions return value if last callback doesn't return anything", () => {
     const testInstance = new TestClass();
     const result = testInstance.methodWithAfterCallbackNoReturn();
     expect(result).toBe(0);

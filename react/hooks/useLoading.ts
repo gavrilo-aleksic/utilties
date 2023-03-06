@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from "react";
 
 const defaultDuration = 1000;
 
@@ -7,14 +7,19 @@ interface UseLoadingProps {
   duration?: number;
   /** Indicates if loading is happening or not */
   loading?: boolean;
-  /** Skip delay on initial showing */
+  /** Skip delay on initial render (if loading prop equals to TRUE) */
   skipOnInitial?: boolean;
 }
 
 /**
- * Emits the loading flag if more than duration ms has passed.
+ * Emits the loading flag if more than provided duration ms has passed.
+ * If loading prop changes, will emit false immediately.
  */
-export const useLoading = ({ duration = defaultDuration, loading, skipOnInitial }: UseLoadingProps = {}) => {
+export const useLoading = ({
+  duration = defaultDuration,
+  loading,
+  skipOnInitial,
+}: UseLoadingProps = {}) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isInitial, setIsinitial] = useState(true);
   const timeoutRef = useRef<NodeJS.Timeout>();

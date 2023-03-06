@@ -53,12 +53,13 @@ const createChainCondition: (
 };
 
 /** Creates a system for checking multiple conditions with provided initial condition. Returned object
- * has next() method which accepts callback which will receive initialCondition value and so on.
- * @returns ChainConditionValue
+ * has methods branching off depending of the value of the initial condition provided.
+ *
+ * @returns {ChainCondition}
  */
 const Condition = (initialCondition: boolean): ChainCondition => {
   const _previousValues = [initialCondition];
   return createChainCondition(initialCondition, _previousValues);
 };
 
-export default Condition
+export default Condition;
