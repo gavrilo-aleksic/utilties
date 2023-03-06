@@ -12,7 +12,9 @@ export type MiddlewareCallbackProps = {
 };
 
 /** Decorator for executing callbacks argument after the function has been finished executing.
- * If last callback returns a value (non undefined), the original function's return will be replace with that value
+ * If last callback returns a value (non undefined), the original function's return will be replaced with that value.
+ * Since TS does not yet support change of return value of method based on decorator, I suggest explicitly setting return type
+ * of the callback to match the return type of the method
  */
 export const After = (
   ...callbacks: ((props: MiddlewareCallbackProps) => any)[]
