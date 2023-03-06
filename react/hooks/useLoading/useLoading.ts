@@ -21,14 +21,14 @@ export const useLoading = ({
   skipOnInitial,
 }: UseLoadingProps = {}) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [isInitial, setIsinitial] = useState(true);
+  const [isInitial, setIsInitial] = useState(true);
   const timeoutRef = useRef<NodeJS.Timeout>();
 
   useEffect(() => {
     if (loading) {
       if (skipOnInitial && isInitial) {
         setIsLoading(true);
-        setIsinitial(false);
+        setIsInitial(false);
         return;
       }
       timeoutRef.current = setTimeout(() => {
