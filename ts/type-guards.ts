@@ -1,7 +1,13 @@
+/**
+ * Checks if the provided value is not nullable.
+ * Useful for filtering array from nullable values and casting result into Array element type without undefined/null values
+ * @param value any
+ * @returns
+ */
 export const exists = <T>(value: T | undefined | null): value is T =>
   value !== undefined && value !== null;
 
-/** Defines the type of the array elements
+/** Defines the type of the provided array elements.
  * @example
  *
  * const array = ["A", "B", "C"] as const;
