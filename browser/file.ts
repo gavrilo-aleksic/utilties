@@ -64,10 +64,6 @@ export const getImageSize = (
   });
 };
 
-export const calculateAspectRatio = (width: number, height: number) => {
-  return Math.round((width / height) * 100) / 100;
-};
-
 export const parseFileAsArrayBuffer = (
   file: File
 ): Promise<{
@@ -83,23 +79,3 @@ export const parseFileAsArrayBuffer = (
     };
     reader.onerror = (error) => reject(error);
   });
-
-/**
- * Transparency solution from:
- * https://stackoverflow.com/questions/41287823/check-image-transparency
- * */
-export const isNotTransparentLogo = (buffer: ArrayBuffer) => {
-  const view = new DataView(buffer);
-
-  if (view.getUint32(0) === 0x89504e47 && view.getUint32(4) === 0x0d0a1a0a) {
-    const depth = view.getUint8(8 + 8 + 8);
-    const type = view.getUint8(8 + 8 + 9);
-
-    return {
-      depth,
-      type: ["G", "", "RGB", "Indexed", "GA", "", "RGBA"][type],
-      buffer: view.buffer,
-      hasAlpha: type === 4 || type === 6,
-    };
-  }
-};
