@@ -7,7 +7,7 @@ export const getContent = (base64: string) => {
  * Reads JS File, and returns base64 content alongside
  * with file size, type and content ready to be uploaded to gql.
  * [raw content]: Full base64 string (with file type)
- * [content]: base64 without file type. This is format acceptable to our Core API
+ * [content]: base64 without file type.
  * [size]: File size in bytes
  * [fileType]: File extension and type. Type is based on following specs:
  * https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs
