@@ -11,6 +11,7 @@ Project is separated into several modules:
 3. Mathematics helper functions with logic operators, arithmetics and calculus (These are more intriguing than actually useful :D)
 4. Useful methods over arrays
 5. Useful Typescript decorators for method wrappings
+6. Working with file reader (file size, extension, image transparency)
 
 ### Setup
 1. Run `npm install` to install dependencies.
