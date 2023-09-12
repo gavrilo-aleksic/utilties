@@ -17,7 +17,7 @@ const withPromiseAll = () => {
     return Promise.all([mockPromise(1), mockPromise(2)]).then(([res1, res2]) => res1 + res2)
 }
 
-export const chain = (chainedValue: Promise<any>): (prev: any) => Promise<any> => {
-    return (...prev: any) => new Promise((resolve) => resolve(chainedValue.then((curr => [...prev, curr].flat()))
-        .catch(e => Promise.reject({ error: e, values: [...prev].flat() }))))
+export const chain = (chainedValue: any): (prev: any) => Promise<any> => {
+    return (...prev: any) => new Promise((resolve) => resolve(chainedValue instanceof Promise ? chainedValue.then((curr => [...prev, curr].flat()))
+        .catch(e => Promise.reject({ error: e, values: [...prev].flat() })) : [...prev, chainedValue].flat()))
 }

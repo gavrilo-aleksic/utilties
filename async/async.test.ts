@@ -18,4 +18,11 @@ describe("[Async chain]", () => {
 
         expect(result).toMatchObject({ error: "Rejected", values: [1, 2] })
     });
+
+    test("Should correctly work with non-promises", async () => {
+        const result = await mockPromise(1)
+            .then(chain(2))
+
+        expect(result).toMatchObject([1, 2])
+    });
 });
