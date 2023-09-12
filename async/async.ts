@@ -1,4 +1,4 @@
-const mockPromise = (val: any) => Promise.resolve(val);
+const mockPromise = (val: any, reject?: boolean) => reject ? Promise.reject(val) : Promise.resolve(val);
 
 /** Boring approach for reducing the result of multiple promises with async/await */
 const withAsyncAwait = async () => {
@@ -17,14 +17,7 @@ const withPromiseAll = () => {
     return Promise.all([mockPromise(1), mockPromise(2)]).then(([res1, res2]) => res1 + res2)
 }
 
-const chain = (chainedValue: Promise<any>): (prev: any) => Promise<[...any]> => {
-    return (...prev: any) => new Promise(async resolve => resolve([...prev, await chainedValue].flat()))
+export const chain = (chainedValue: Promise<any>): (prev: any) => Promise<any> => {
+    return (...prev: any) => new Promise((resolve) => resolve(chainedValue.then((curr => [...prev, curr].flat()))))
+        .catch(e => Promise.reject({ error: e, values: [...prev] }))
 }
-
-(async function main() {
-    const result = await mockPromise(1)
-        .then(chain(mockPromise(2)))
-        .then(chain(mockPromise(3)))
-        .then(([res1, res2, res3]) => res1 + res2 + res3)
-    console.log({ result })
-})()
