@@ -18,6 +18,6 @@ const withPromiseAll = () => {
 }
 
 export const chain = (chainedValue: Promise<any>): (prev: any) => Promise<any> => {
-    return (...prev: any) => new Promise((resolve) => resolve(chainedValue.then((curr => [...prev, curr].flat()))))
-        .catch(e => Promise.reject({ error: e, values: [...prev] }))
+    return (...prev: any) => new Promise((resolve) => resolve(chainedValue.then((curr => [...prev, curr].flat()))
+        .catch(e => Promise.reject({ error: e, values: [...prev].flat() }))))
 }
