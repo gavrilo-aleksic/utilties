@@ -9,6 +9,7 @@ export interface ISubject {
   }: {
     onMessage: ISubscriber["onMessage"];
   }) => ISubscriber;
+  remove: (subscriber: ISubscriber) => void;
 }
 
 export class Subject implements ISubject {
@@ -27,6 +28,12 @@ export class Subject implements ISubject {
     return subscriber;
   }
 
+  remove(subscriber: ISubscriber) {
+    this.subscribers.splice(
+      this.subscribers.findIndex((e) => e === subscriber),
+      1
+    );
+  }
   close() {}
 }
 
@@ -39,4 +46,5 @@ console.log("Starting");
 
 setInterval(() => {
   subject.emit("hey");
+  subscriber.unsubscribe();
 }, 500);

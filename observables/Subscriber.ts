@@ -24,5 +24,7 @@ export class Subscriber implements ISubscriber {
     return this;
   }
 
-  unsubscribe() {}
+  unsubscribe() {
+    this.subject?.remove(this);
+  }
 }
