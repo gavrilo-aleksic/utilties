@@ -7,37 +7,26 @@ type BuilderWrapper<T> = {
   [key in keyof T]: (value: T[key]) => BuilderWrapper<T>;
 } & { build: () => T };
 
-const RESERVED_PROPERTY_NAMES = ["build"];
-const getHiddenPropertyName = (property: string) => `__${property}__`;
-const getPropertyNameFromHidden = (hiddenName: string) =>
-  hiddenName.slice(2, -2);
-const isHiddenPropertyName = (propertyName: string) =>
-  propertyName.slice(0, 2) == "__" && propertyName.slice(-2) == "__";
-
 export const Builder = <T>(Model: new () => T) => {
-  const hiddenKeys: Symbol[] = [];
+  const values: Record<string, any> = {};
 
   const wrapper: BuilderWrapper<T> = new Proxy(
     {
       build: () => {
         const newModel = new Model();
-        Object.keys(wrapper).forEach((hiddenKey: string) => {
-          if (isHiddenPropertyName(hiddenKey))
-            // @ts-ignore
-            newModel[getPropertyNameFromHidden(hiddenKey)] =
-              // @ts-ignore
-              wrapper[hiddenKey];
+        Object.keys(values).forEach((key: string) => {
+          // @ts-ignore
+          newModel[key] = values[key];
         });
         return newModel;
       },
     } as BuilderWrapper<T>,
     {
       get(target: any, property: any) {
-        if (RESERVED_PROPERTY_NAMES.includes(property.toString()))
-          return target[property];
-        if (isHiddenPropertyName(property)) return target[property];
+        if (target[property]) return target[property];
+        if (values[property]) return values[property];
         return (value: any) => {
-          target[getHiddenPropertyName(property)] = value;
+          values[property] = value;
           return wrapper;
         };
       },
