@@ -15,7 +15,7 @@ export interface ISubject {
 export class Subject implements ISubject {
   subscribers: ISubscriber[] = [];
 
-  emit(message: any) {
+  emit(message: IMessage) {
     this.subscribers.forEach((subscriber) =>
       subscriber.messageCallback(message)
     );
