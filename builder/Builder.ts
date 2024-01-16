@@ -8,7 +8,7 @@ type BuilderWrapper<T> = {
 } & { build: () => T };
 
 export const Builder = <T>(Model: new () => T) => {
-  const values: Record<string, any> = {};
+  const values: Partial<Record<keyof T, any>> = {};
 
   const wrapper: BuilderWrapper<T> = new Proxy(
     {
@@ -22,7 +22,8 @@ export const Builder = <T>(Model: new () => T) => {
       },
     } as BuilderWrapper<T>,
     {
-      get(target: any, property: any) {
+      // @ts-ignore
+      get(target: BuilderWrapper<T>, property: keyof T) {
         if (target[property]) return target[property];
         if (values[property]) return values[property];
         return (value: any) => {
